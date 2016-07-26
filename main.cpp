@@ -4,6 +4,7 @@
 #include"TraversalAlgo.h"
 #include "TraversalApplication.h"
 #include "NonRecursiveTraversal.h"
+#include "MorrisTraversal.h"
 using namespace std;
 int main() {
     BNode<int>* root = newNode(4);
@@ -12,7 +13,7 @@ int main() {
     root->left->left = newNode(1);
     root->left->right = newNode(3);
     
-    inorderWithoutRecursion(root);
+    morrisInorder(root);
     
     /* Simple traversal applications
     cout<<height(root)<<endl;
