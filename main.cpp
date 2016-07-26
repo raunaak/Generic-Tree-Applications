@@ -10,11 +10,13 @@ int main() {
     root->right = newNode(5);
     root->left->left = newNode(1);
     root->left->right = newNode(3);
-    //cout<<totalNodes(root)<<endl;
-    //cout<<maxElement(root)<<endl;
-    //cout<<minElement(root)<<endl;
+    cout<<height(root)<<endl;
+    cout<<diameter(root)<<endl;
+    cout<<totalNodes(root)<<endl;
+    cout<<maxElement(root)<<endl;
+    cout<<minElement(root)<<endl;
     printLeftViewRecursion(root);
-    //printLeftViewNonRecursion(root);
+    printLeftViewNonRecursion(root);
     
     /* Traversal
      * inorder(root); cout<<endl;

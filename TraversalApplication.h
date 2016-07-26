@@ -88,4 +88,42 @@ void printLeftViewNonRecursion(BNode<T>* root){
     }
     }
 }
+
+template<typename T>
+int height(BNode<T>* root){
+    /*         
+     * if current root is empty return 0
+     * maximum of height of left subtree and height of right subtree + 1
+     * EXAMPLE  height of tree = 2
+     *                         2
+     *                        /  \
+     *                      1      3     
+     */
+    if(root==NULL)return 0;
+    return max(height(root->left),height(root->right))+1;
+}
+
+template<typename T>
+int diameter(BNode<T>* root, int height){
+    /*
+     * BASE CASE: if root is NULL diameter is null
+     * diameter is maximum of 
+     *      diameter of left subtree
+     *      diameter of right subtree
+     *      height of left subtree + height of right subtree + 1
+     *      to obtain height, we have added another parameter as height argument
+     */
+    if(root==NULL){height = 0; return 0;}
+    int h1 = 0; int h2 = 0;
+    int d1 = diameter(root->left,h1);
+    int d2 = diameter(root->right,h2);
+    height = max(h1,h2)+1;
+    return max(max(d1,d2),h1+h2+1);
+}
+
+template<typename T>
+int diameter(BNode<T>* root){
+    int h=0;
+    diameter(root, h);
+}
 #endif /* TRAVERSALAPPLICATION_H */
