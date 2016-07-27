@@ -5,15 +5,27 @@
 #include "TraversalApplication.h"
 #include "NonRecursiveTraversal.h"
 #include "MorrisTraversal.h"
+#include "ConstructTreeGivenInorderAndPreorder.h"
 using namespace std;
 int main() {
+    
+    int in[] = {1,2,3,4,5};
+    int pre[]= {4,2,1,3,5};
+    BNode<int>* node = createTree(in, pre, 5);
+    inorder(node); cout<<endl;
+    preorder(node); cout<<endl;
+    postorder(node); cout<<endl;
+    
+    /*
     BNode<int>* root = newNode(4);
     root->left = newNode(2);
     root->right = newNode(5);
     root->left->left = newNode(1);
     root->left->right = newNode(3);
+     */
     
-    morrisInorder(root);
+    //Morris Inorder traversal
+    //morrisInorder(root);
     
     /* Simple traversal applications
     cout<<height(root)<<endl;
