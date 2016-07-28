@@ -9,20 +9,29 @@
 using namespace std;
 int main() {
     
+    BNode<int>* root = newNode(4);
+    root->left = newNode(2);
+    root->right = newNode(5);
+    root->left->left = newNode(1);
+    root->left->right = newNode(3);
+
+    cout<<maxWidth(root)<<endl;
+    printNodesAtDistance(root, 3);
+    printAncestor(root,1);
+
+    BNode<int>* subroot = newNode(2);
+    subroot->left = newNode(1);
+    subroot->right = newNode(3);
+    cout<<subtree(root, subroot)<<endl;
+    
+    /*Create a tree given inorder and preorder traversal
     int in[] = {1,2,3,4,5};
     int pre[]= {4,2,1,3,5};
     BNode<int>* node = createTree(in, pre, 5);
     inorder(node); cout<<endl;
     preorder(node); cout<<endl;
     postorder(node); cout<<endl;
-    
-    /*
-    BNode<int>* root = newNode(4);
-    root->left = newNode(2);
-    root->right = newNode(5);
-    root->left->left = newNode(1);
-    root->left->right = newNode(3);
-     */
+    */
     
     //Morris Inorder traversal
     //morrisInorder(root);

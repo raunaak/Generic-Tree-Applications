@@ -104,26 +104,112 @@ int height(BNode<T>* root){
 }
 
 template<typename T>
-int diameter(BNode<T>* root, int height){
+int diameter(BNode<T>* root, int* height){
     /*
      * BASE CASE: if root is NULL diameter is null
      * diameter is maximum of 
      *      diameter of left subtree
      *      diameter of right subtree
      *      height of left subtree + height of right subtree + 1
-     *      to obtain height, we have added another parameter as height argument
+     *      to obtain height, we have added another parameter as height pointer
+     *      BASE CASE: it returns height of null tree = 0
+     *      it returns max(height of left subtree, height of right subtree) + 1
      */
-    if(root==NULL){height = 0; return 0;}
+    if(root==NULL){*height = 0; return 0;}
     int h1 = 0; int h2 = 0;
-    int d1 = diameter(root->left,h1);
-    int d2 = diameter(root->right,h2);
-    height = max(h1,h2)+1;
+    int d1 = diameter(root->left,&h1);
+    int d2 = diameter(root->right,&h2);
+    *height = max(h1,h2)+1;
     return max(max(d1,d2),h1+h2+1);
 }
 
 template<typename T>
 int diameter(BNode<T>* root){
     int h=0;
-    diameter(root, h);
+    diameter(root, &h);
 }
+
+template<typename T>
+int maxWidth(BNode<T>* root){
+    /*simple level order traversal
+     Slight variation of the above method on line 64
+     void printLeftViewNonRecursion(BNode<T>* root)*/
+    BNode<T>* curr = root; int currSum = 0; int maxSum = 0; int preLevel = 0; int currLevel = 1;
+    queue<BNode<T>*> q1; q1.push(curr);
+    queue<int> q2; q2.push(1);
+    while(!q1.empty()){
+        curr = q1.front(); q1.pop();
+        currLevel = q2.front(); q2.pop();
+        if(curr->left){q1.push(curr->left); q2.push(currLevel+1);}
+        if(curr->right){q1.push(curr->right); q2.push(currLevel+1);}
+        if(preLevel<currLevel)currSum=1;
+        else currSum++;
+        preLevel = currLevel;
+        if(maxSum<currSum)maxSum = currSum;
+    }
+    return maxSum;
+}
+
+template<typename T>
+void printNodesAtDistance(BNode<T>* root, int k){
+    /*simple level order traversal
+     Slight variation of the above method on line 64
+     void printLeftViewNonRecursion(BNode<T>* root)*/
+    BNode<T>* curr = root; int level = 1;
+    queue<BNode<T>*> q1; q1.push(curr);
+    queue<int> q2; q2.push(1);
+    while(!q1.empty()){
+        curr = q1.front(); q1.pop();
+        level = q2.front(); q2.pop();
+        if(level>k)break;
+        if(level==k)cout<<curr->data<<" ";
+        else{
+            if(curr->left){q1.push(curr->left); q2.push(level+1);}
+            if(curr->right){q1.push(curr->right); q2.push(level+1);}
+        }
+    }
+    cout<<endl;
+}
+
+template<typename T>
+bool ancestor(BNode<T>* root, const T& data){
+    if(!root)return false;
+    if(root->left)if(root->left->data==data||ancestor(root->left,data))cout<<root->data<<" ";
+    if(root->right)if(root->right->data==data||ancestor(root->right,data))cout<<root->data<<" ";
+}
+
+template<typename T>
+void printAncestor(BNode<T>* root, const T& data ){
+    /*
+     * if left subtree or right subtree contains the given node, then print it otherwise dont
+     */
+    ancestor(root, data);
+    cout<<endl;
+}
+
+template<typename T>
+bool equalTree(BNode<T>* root, BNode<T>* subroot){
+    if(!subroot)return true;
+    else if(subroot&&root){
+        return (root->data==subroot->data)&&equalTree(root->left,subroot->left)&&equalTree(root->right,subroot->right);
+    }
+    else return false;
+}
+
+template<typename T>
+bool subtree(BNode<T>* root, BNode<T>* subroot){
+    /*
+     * traverse the binary tree and check at every node whether subroot.data is equal to root.data
+     * if(equal)traverse according to the smaller tree and check whether they are equal
+     */
+    bool a = false, b = false, c = false;
+    if(root&&subroot){
+    if(root->data==subroot->data)a=equalTree(root, subroot);
+    if(root->left)b=subtree(root->left, subroot);
+    if(root->right)c=subtree(root->right, subroot);
+    }
+    return a||b||c;
+}
+
+
 #endif /* TRAVERSALAPPLICATION_H */
