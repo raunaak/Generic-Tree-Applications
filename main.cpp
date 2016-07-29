@@ -6,6 +6,10 @@
 #include "NonRecursiveTraversal.h"
 #include "MorrisTraversal.h"
 #include "ConstructTreeGivenInorderAndPreorder.h"
+#include "TraversalApplication2.h"
+#include "Subtree.h"
+#include "LowestCommonAncestor.h"
+#include "InorderSuccessor.h"
 using namespace std;
 int main() {
     /*
@@ -22,7 +26,12 @@ int main() {
     root->left->left = newNode(1);
     root->left->right = newNode(3);
 
-    cout<<lowestCommonAncestor(root,3,5)<<endl;
+    BNode<int>* n = inorderSuccessor(root, 3);
+    if(n) cout<<n->data<<endl;
+    
+    //Lowest common ancestor
+    //cout<<lowestCommonAncestor(root,3,5)<<endl;
+    
     /*
     BNode<int>* subroot = newNode(2);
     subroot->left = newNode(1);
