@@ -2,12 +2,19 @@
 #include <iostream>
 #include "BNode.h"
 #include"TraversalAlgo.h"
-#include "TraversalApplication.h"
+#include "TraversalApplication1.h"
 #include "NonRecursiveTraversal.h"
 #include "MorrisTraversal.h"
 #include "ConstructTreeGivenInorderAndPreorder.h"
 using namespace std;
 int main() {
+    /*
+     *                  4
+     *                /   \
+     *              2       5
+     *            /   \
+     *           1     3
+     */
     
     BNode<int>* root = newNode(4);
     root->left = newNode(2);
@@ -15,14 +22,18 @@ int main() {
     root->left->left = newNode(1);
     root->left->right = newNode(3);
 
-    cout<<maxWidth(root)<<endl;
-    printNodesAtDistance(root, 3);
-    printAncestor(root,1);
-
+    cout<<lowestCommonAncestor(root,3,5)<<endl;
+    /*
     BNode<int>* subroot = newNode(2);
     subroot->left = newNode(1);
     subroot->right = newNode(3);
     cout<<subtree(root, subroot)<<endl;
+    */
+    
+    /*
+    cout<<maxWidth(root)<<endl;
+    printNodesAtDistance(root, 3);
+    printAncestor(root,1);*/
     
     /*Create a tree given inorder and preorder traversal
     int in[] = {1,2,3,4,5};
